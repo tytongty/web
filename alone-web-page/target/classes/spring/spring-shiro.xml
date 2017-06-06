@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+ <aop:aspectj-autoproxy proxy-target-class="true"/> 
+  <bean id="shiroRealm" class="com.alone.web.utils.ShiroRealm"/> 
+ <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+ 	<property name="realm" ref="shiroRealm"/>
+ </bean>
+ <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+ 	<property name="loginUrl" value="/login/show"/>
+ 	<property name="securityManager" ref="securityManager"/>
+ 	<property name="unauthorizedUrl" value="/"/>
+ 	<property name="filterChainDefinitions">
+ 		<value>
+ 			/login/show=anon
+ 			/**=authc
+ 		</value>
+ 	</property>
+ </bean>
+</beans>
