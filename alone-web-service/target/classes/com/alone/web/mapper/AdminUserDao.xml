@@ -17,5 +17,21 @@
     <sql id="Base_Column_List">
         user_id AS userId, role_id AS roleId, username, password, salt, locked, del_flg AS delFlg
     </sql>
-
+   <select id="findPermissionAllByUsername" parameterType="String" resultType="com.alone.web.entity.AdminPermission">
+   		SELECT
+			ap.id as id,
+			ap.`name` as name,
+			ap.parent_id as parentId,
+			ap.sort as sort,
+			ap.url as url
+		FROM
+			admin_user a
+		LEFT JOIN admin_role ar ON ar.role_id = a.role_id
+		LEFT JOIN role_permission rp ON rp.role_id = ar.role_id
+		LEFT JOIN admin_permission ap ON rp.permission_id = ap.id
+		WHERE
+			a.username = #{username} 
+		ORDER BY ap.sort	
+   	
+   </select>
 </mapper>

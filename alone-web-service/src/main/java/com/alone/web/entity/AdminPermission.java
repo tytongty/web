@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -37,6 +38,7 @@ public class AdminPermission extends Model<AdminPermission> {
     /**
      * 父级菜单id
      */
+	List<AdminPermission> childPermission;
 	@TableField("parent_id")
 	private String parentId;
 
@@ -84,6 +86,14 @@ public class AdminPermission extends Model<AdminPermission> {
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
+	}
+
+	public List<AdminPermission> getChildPermission() {
+		return childPermission;
+	}
+
+	public void setChildPermission(List<AdminPermission> childPermission) {
+		this.childPermission = childPermission;
 	}
 
 }

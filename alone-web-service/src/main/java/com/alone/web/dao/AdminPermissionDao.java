@@ -1,5 +1,9 @@
 package com.alone.web.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.alone.web.entity.AdminPermission;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
@@ -12,5 +16,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @since 2017-06-05
  */
 public interface AdminPermissionDao extends BaseMapper<AdminPermission> {
+
+	List<AdminPermission> findChildPermission(@Param("parentId")String id);
 
 }

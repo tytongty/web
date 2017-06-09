@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : myself
 Source Server Version : 50714
 Source Host           : localhost:3306
-Source Database       : cheng
+Source Database       : alone_web
 
 Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-06-08 17:33:22
+Date: 2017-06-09 17:22:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,23 +66,24 @@ CREATE TABLE `admin_user` (
   `locked` int(1) NOT NULL DEFAULT '0' COMMENT '账户的状态 0表示正常 1表示锁住',
   `del_flg` int(1) NOT NULL DEFAULT '0' COMMENT '删除标识 0表示未删除 1表示删除',
   PRIMARY KEY (`user_id`),
+  UNIQUE KEY `username_index` (`username`),
   KEY `admin_role_role_id` (`role_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin_user
 -- ----------------------------
-INSERT INTO `admin_user` VALUES ('2182e2a2-3f0c-478c-abbf-0983ed973fdd', '', 'meili', '863c33b1fdc5915e1b75c3c132dd7719', 'a2ba648a0e60ff793e45404e36e420cd', '0', '0');
-INSERT INTO `admin_user` VALUES ('29cb7c4e-af64-42ce-aeca-8370a43cf563', '', 'xiaogouzi', '42681de96fe25080e281dcb459aa21d8', '056887c312309f1d3e6b8b0c913662d1', '0', '0');
-INSERT INTO `admin_user` VALUES ('4dd37bbd-3d1a-488a-bffe-f43e1c49cc4a', '', 'wulala', 'de39c779b12de92632717f62a49fb024', 'd0d44a29327d1594d8a82d52d13cc4ba', '0', '0');
-INSERT INTO `admin_user` VALUES ('4f9c09e9-4232-4baf-aea4-e7bb490aaeb3', '', 'mamama', 'bef1c196eb23a2bf206a46578c64aa2a', '1bda93fb810b525b6284bbeb8ea21978', '0', '0');
-INSERT INTO `admin_user` VALUES ('8824873d-c828-45b6-94c7-67e05e109a8e', '', 'chengxinjing123', 'c78202e5d23f51146614564f75398a09', '5f3a42a6d994ea0972d7e93c2db58495', '0', '0');
-INSERT INTO `admin_user` VALUES ('89248c28516800faea586d485abdb7b3', 'super', 'mama', 'b92d1387b243c99e4aaee339c495f501', '2e6145e868e86ccee932d2ccb96e4fc5', '0', '0');
-INSERT INTO `admin_user` VALUES ('bb9ec410ffcf116199adb52062333d79', 'super', 'admin', '050efdbc80ba2fa9112182fe116be095', 'bdfcde87cd6c597b984db86f6bd9ca47', '0', '0');
-INSERT INTO `admin_user` VALUES ('cd466e8a8f4e6f08f503721e0e97cd04', 'cd466e8a8f4e6f08f503721e0e97cd04', 'jiangxi', '0d846c10025993b9290f085e066e4964', '5f2e91f1f61643cb4d94fe70b02653e7', '0', '0');
-INSERT INTO `admin_user` VALUES ('d5c0e5ee17904a3248634fc7fab1fddd', '', 'huawei', 'ef28259654af9d6ddfad40eac41cf179', '5fffe429a3f7f0f0f7aa53b7e6bcad60', '0', '0');
-INSERT INTO `admin_user` VALUES ('f631d601-a778-4c7a-94ff-36ab07a75125', '', 'chengdaxiao', 'a6b49201ed3bc626617ed02f600e09b0', '0bde8b7783d984b4ec3ca62f05d89578', '0', '0');
-INSERT INTO `admin_user` VALUES ('f97ac69d-802a-4879-885c-7d1f45df68c0', '', 'cheng', 'ff7b1b0955415c154555acf267b05c07', '8f136bb8f54bb7880da73a1b9dd14a71', '0', '0');
+INSERT INTO `admin_user` VALUES ('170e68e2c951165db3cd286ced1c6bb1', 'super', 'xiaomei', '002f07928e2feef384b291726377ca04', 'hKLwP5cWgIeMWw7QNYL5JA==', '0', '0');
+INSERT INTO `admin_user` VALUES ('375df57ac9da9433247cdc3a4b669901', 'super', 'xiaomei1', 'bcffa1ca2aad72357ae089c01fe31aac', 'X0x8FpX5jcc1dIi/XzA7Bg==', '0', '0');
+INSERT INTO `admin_user` VALUES ('4851d9d6b8e9632c5fe5def6f582390d', 'super', 'wangwu', 'decba395ab4c57abb69b05882e8ec9cf', 'WIKVgglz++c4kGJVvBuvHg==', '0', '0');
+INSERT INTO `admin_user` VALUES ('6a1d80e4af49c51be055dc4d29fcb180', 'super', 'lisi', '4315139033a60e379fc93d46a8b6e079', '+eQWYt4GVQMLoyF86o/Viw==', '0', '0');
+INSERT INTO `admin_user` VALUES ('7b456095457b09a18232be798ace0023', 'super', 'cheng', '231793d554975efbf2119477837d85b1', 'IsxE3KEzGQwhjyo8fZKaRg==', '0', '0');
+INSERT INTO `admin_user` VALUES ('9070fe83c429db323f757ff26d8933ca', 'super', 'aini', '3cf7b9d4bc247a9e47757f71e4ce59ea', 'MeKre505l9aACSkxD60LjQ==', '0', '0');
+INSERT INTO `admin_user` VALUES ('bca46c62d5f0539b115290d2bd359a40', 'super', 'chengxinjing', 'faf962d518f4d55d17d26dd278131480', 'jZJTgFoXyw9tNKfoTCUJjw==', '0', '0');
+INSERT INTO `admin_user` VALUES ('de6d060269986e452cff1c5c180927ae', 'super', 'wangzulan', 'abf8cad2adb9f49b504f756fa4efb5b2', '/n8DLVBKupnduCkDCtkO3Q==', '0', '0');
+INSERT INTO `admin_user` VALUES ('eaee229d32da72191b0961997ddbc439', 'super', 'admin', 'd9ebf01f26380fc7967c898e873951a3', '4sbAXmzYQNpyRjiX3G4pRw==', '0', '0');
+INSERT INTO `admin_user` VALUES ('ed48ae8d91b53e788053570024dde7c6', 'super', 'zhangsan', '356f840f1d483a43390e0e614dfcb41e', '1yR0bm6IJphwShh8CjYhqw==', '0', '0');
+INSERT INTO `admin_user` VALUES ('f48e2ea13ccf95609fe63d019ce7f7a4', 'super', 'huangshan', 'cf6ef90f25581cc446baeb5e574b50f4', 'YkN9RrY2ab9iCbC9aQvfzA==', '0', '0');
 
 -- ----------------------------
 -- Table structure for role_permission
@@ -93,8 +94,8 @@ CREATE TABLE `role_permission` (
   `permission_id` varchar(200) NOT NULL,
   PRIMARY KEY (`role_id`,`permission_id`),
   KEY `permission_id_key` (`permission_id`),
-  CONSTRAINT `permission_id_key` FOREIGN KEY (`permission_id`) REFERENCES `admin_permission` (`id`),
-  CONSTRAINT `role_id_key` FOREIGN KEY (`role_id`) REFERENCES `admin_role` (`role_id`)
+  CONSTRAINT `role_permission_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `admin_permission` (`id`),
+  CONSTRAINT `role_permission_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `admin_role` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

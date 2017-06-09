@@ -16,7 +16,11 @@
  	<property name="unauthorizedUrl" value="/"/>
  	<property name="filterChainDefinitions">
  		<value>
+ 			/login/login=anon
  			/login/show=anon
+ 			/login/fail.jsp=anon
+ 			/login/register= anon
+ 			/login/registerSave= anon
  			/**=authc
  		</value>
  	</property>

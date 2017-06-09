@@ -42,4 +42,11 @@ public class Crypto {
 	  String uuid = new SimpleHash(MyConst.ALGORITHMNAME, UUID.randomUUID().toString()).toString();
 	  return uuid;
   }
+       public static void main(String[] args) {
+		String password = cryptoPassword("123456","admin");
+		ByteSource salt = cryptoSalt("admin");
+		System.out.println(password);
+		System.out.println(salt);
+		System.out.println(getUUID());
+	}
 }

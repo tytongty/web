@@ -15,5 +15,12 @@
     <sql id="Base_Column_List">
         id, name, sort, url, parent_id AS parentId
     </sql>
-
+ <select id="findChildPermission" parameterType="String" resultType="com.alone.web.entity.AdminPermission">
+       select
+          id, name, sort, url, parent_id AS parentId
+        from
+         admin_permission
+         where 
+            parent_id =#{parentId}
+ </select>
 </mapper>

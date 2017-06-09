@@ -1,5 +1,9 @@
 package com.alone.web.utils;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -7,11 +11,13 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alone.web.entity.AdminPermission;
 import com.alone.web.entity.AdminUser;
 import com.alone.web.service.AdminUserService;
 
@@ -33,8 +39,18 @@ public class ShiroRealm extends AuthorizingRealm {
 	//权限认证
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<String> roleUrls = new HashSet<String>();
+		String  username = (String) principals.getPrimaryPrincipal();
+		//根据用户名查询其含有的所有权限
+	List<AdminPermission> permissionList=adminUserService.findPermissionAllByUsername(username);
+	  for(AdminPermission parent :permissionList  ){
+		  //父级菜单没有url
+		  for(AdminPermission child : parent.getChildPermission()){
+			  roleUrls.add(child.getUrl());
+		  }
+	  }
+		SimpleAuthorizationInfo authorizationInfo = new  SimpleAuthorizationInfo(roleUrls);
+		return authorizationInfo;
 	}
 	
 	//身份认证
