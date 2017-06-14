@@ -34,4 +34,59 @@
 		ORDER BY ap.sort	
    	
    </select>
+   
+   <select id="findfindRoleByUsername" parameterType="String" resultType="com.alone.web.entity.AdminRole">
+   		SELECT
+   		  T2.ROLE_NAME AS roleName,
+   		  T2.ROLE_ID AS roleId
+   		FROM
+   		 ADMIN_USER T1
+   		LEFT JOIN ADMIN_ROLE T2 ON T2.ROLE_ID = T1.ROLE_ID
+   	    WHERE
+   	      T1.USERNAME=#{username}
+   </select>
+   
+   <select id="searchePageTotal" parameterType="com.alone.web.form.AdminUserForm" resultType="Integer">
+   		SELECT
+			COUNT(T1.user_id)
+		FROM
+			admin_user T1
+		WHERE
+			1 = 1
+        <if test="roleId != null and roleId != ''">
+           AND  T1.role_id =#{roleId}
+        </if>
+         <if test="username != null and username != ''">
+           AND  T1.T1.username =#{username}
+        </if>
+         <if test="locked != null and locked != ''">
+           AND  T1.locked =#{locked}
+        </if>
+   </select>
+   
+    <select id="searchePage" parameterType="com.alone.web.form.AdminUserForm" resultType="com.alone.web.form.AdminUserForm">
+   		SELECT
+			T1.username as username,
+			T1.role_id as roleId,
+			T1.locked as locked,
+			T1.user_id as userId
+		FROM
+			admin_user T1
+		WHERE
+			1 = 1
+        <if test="roleId != null and roleId != ''">
+           AND  T1.role_id =#{roleId}
+        </if>
+         <if test="username != null and username != ''">
+           AND  T1.T1.username =#{username}
+        </if>
+         <if test="locked != null and locked != ''">
+           AND  T1.locked =#{locked}
+        </if>
+        ORDER BY T1.username
+        <if test="isPage != 0">
+         Limit #{begin},#{pageSize}
+        </if>
+   </select>
+   
 </mapper>

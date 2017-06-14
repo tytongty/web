@@ -6,9 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <%@ include file="../basicPage/basic.jsp" %>
-<%=basePath %>
 </head>
 <body>
-<jsp:include page="../basicPage/header.jsp"/>
-<jsp:include page="../basicPage/menu.jsp"/>
+<%@ include file="../basicPage/nav.jsp" %>
+	<div class="page-container">
+		这就是原理
+	</div>
+</body>
 </html>

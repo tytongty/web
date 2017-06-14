@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.alone.web.dao.AdminPermissionDao;
 import com.alone.web.dao.AdminUserDao;
 import com.alone.web.entity.AdminPermission;
+import com.alone.web.entity.AdminRole;
 import com.alone.web.entity.AdminUser;
+import com.alone.web.form.AdminUserForm;
 
 @Service("adminUserService")
 public class AdminUserService {
@@ -40,6 +42,21 @@ public class AdminUserService {
 
 	public void saveRegister(AdminUser adminUser) {
 		adminUserDao.insert(adminUser);
+	}
+
+	public AdminRole findRoleByUsername(AdminUser adminUser) {
+		AdminRole role = adminUserDao.findfindRoleByUsername(adminUser.getUsername());
+		return role;
+	}
+
+	public AdminUserForm searchePage(AdminUserForm vo) {
+		int total = adminUserDao.searchePageTotal(vo);
+		if(total>0){
+			List<AdminUserForm> rows = adminUserDao.searchePage(vo);
+			vo.setRows(rows);
+		}
+		vo.setTotal(total);
+		return vo;
 	}
 
 	

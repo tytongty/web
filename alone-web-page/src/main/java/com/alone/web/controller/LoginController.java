@@ -14,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alone.web.basic.controller.BasicController;
 import com.alone.web.entity.AdminPermission;
+import com.alone.web.entity.AdminRole;
 import com.alone.web.entity.AdminUser;
 import com.alone.web.service.AdminUserService;
 import com.alone.web.utils.Crypto;
@@ -22,7 +24,7 @@ import com.alone.web.utils.PathConst;
 
 @Controller
 @RequestMapping("/login")
-public class LoginController {
+public class LoginController extends BasicController {
 	@Autowired
 	private AdminUserService adminUserService;
 
@@ -34,6 +36,7 @@ public class LoginController {
 	 */
 	@RequestMapping("show")
 	public String show() {
+		
 		return PathConst.BASE_PATH + "login/index";
 	}
 
@@ -48,19 +51,22 @@ public class LoginController {
 	public ModelAndView login(ModelAndView mv, AdminUser adminUser, HttpServletRequest request) {
 		Subject subject = SecurityUtils.getSubject();
 		if (subject.isAuthenticated()) {
-			mv.setViewName(PathConst.BASE_PATH + "login/success");
+			mv.setViewName(PathConst.BASE_PATH + "index/index");
 			return mv;
 		}
 		UsernamePasswordToken token = new UsernamePasswordToken(adminUser.getUsername(), adminUser.getPassword());
 		try {
 			subject.login(token);
 			mv.addObject("msg", "登录成功");
-			mv.setViewName(PathConst.BASE_PATH + "login/success");
+			mv.setViewName(PathConst.BASE_PATH + "index/index");
 			// 根据用户名查询所有权限
 			List<AdminPermission> parentPermissionList = adminUserService
 					.findPermissionAllByUsername(adminUser.getUsername());
 			//mv.addObject("parentPermissionList", parentPermissionList);
 			request.getSession().setAttribute("parentPermissionList", parentPermissionList);
+			//查出其角色名称
+			AdminRole role =adminUserService.findRoleByUsername(adminUser);
+			request.getSession().setAttribute("role",role);
 
 		} catch (AuthenticationException e) {
 			mv.addObject("msg", "登录失败");

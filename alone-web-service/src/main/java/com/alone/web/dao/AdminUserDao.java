@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.alone.web.entity.AdminPermission;
+import com.alone.web.entity.AdminRole;
 import com.alone.web.entity.AdminUser;
+import com.alone.web.form.AdminUserForm;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -18,6 +20,14 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface AdminUserDao extends BaseMapper<AdminUser> {
 
-  List<AdminPermission> findPermissionAllByUsername(@Param("username")String username);
+	List<AdminPermission> findPermissionAllByUsername(@Param("username") String username);
+
+	AdminRole findfindRoleByUsername(@Param("username") String username);
+
+	int searchePageTotal(AdminUserForm vo);
+
+	List<AdminUserForm> findEntityByEntity(AdminUserForm vo);
+
+	List<AdminUserForm> searchePage(AdminUserForm vo);
 
 }
