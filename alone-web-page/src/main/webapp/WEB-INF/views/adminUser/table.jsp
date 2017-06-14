@@ -12,9 +12,9 @@
   
   <input type="hidden" id="pageTotal" value="${page.pageTotal }">
 <body>
-    <div>
-     	<a class=" btn btn-primary radius" style="text-align: left;" onclick="layer_show('添加','<%=basePath %>/adminUser/edit',500,400)" ><i class="Hui-iconfont">&#xe610;</i>添加用户</a>
-		<div style="text-align: right;"><label style="text-align: right;"><strong>总条数：${page.total }</strong></label> </div> 
+    <div class="pd-5  mt-20" >
+     	<span class="l"><a class=" btn btn-primary radius" style="text-align: left;" onclick="layer_show('添加','<%=basePath %>/adminUser/edit',500,400)" ><i class="Hui-iconfont">&#xe610;</i>添加用户</a></span>
+		<span class="r"><strong>总条数：${page.total }</strong></span>
 	</div>
    <table class="table table-border  table-bg table-bordered table-hover">
    		<thead  class="text-c">
