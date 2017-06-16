@@ -17,7 +17,35 @@
     <sql id="Base_Column_List">
         user_id AS userId, role_id AS roleId, username, password, salt, locked, del_flg AS delFlg
     </sql>
-   <select id="findPermissionAllByUsername" parameterType="String" resultType="com.alone.web.entity.AdminPermission">
+    <!-- 查询所有父级菜单 -->
+   <select id="findPermissionAllParentByUsername" parameterType="String" resultType="com.alone.web.entity.AdminPermission">
+   	SELECT
+			ap1.id as id,
+			ap1.`name` as name,
+			ap1.parent_id as parentId,
+			ap1.sort as sort,
+			ap1.url as url
+		FROM	
+     admin_permission ap1 WHERE ap1.id IN
+
+       (SELECT
+			ap.parent_id as parentId
+		FROM
+			admin_user a
+		LEFT JOIN admin_role ar ON ar.role_id = a.role_id
+		LEFT JOIN role_permission rp ON rp.role_id = ar.role_id
+		LEFT JOIN admin_permission ap ON rp.permission_id = ap.id
+		WHERE
+			a.username = #{username}
+			and ap.parent_id !=''
+		ORDER BY ap.sort)
+        GROUP BY ap1.id
+        ORDER BY ap1.id	
+   	
+   </select>
+   
+    <!-- 查询所有子级菜单 -->
+   <select id="findPermissionAllChildByUsername" parameterType="String" resultType="com.alone.web.entity.AdminPermission">
    		SELECT
 			ap.id as id,
 			ap.`name` as name,
@@ -30,7 +58,8 @@
 		LEFT JOIN role_permission rp ON rp.role_id = ar.role_id
 		LEFT JOIN admin_permission ap ON rp.permission_id = ap.id
 		WHERE
-			a.username = #{username} 
+			a.username = #{username}
+			and ap.parent_id !=''
 		ORDER BY ap.sort	
    	
    </select>
@@ -52,7 +81,7 @@
 		FROM
 			admin_user T1
 		WHERE
-			1 = 1
+		  T1.del_flg !='1'
         <if test="roleId != null and roleId != ''">
            AND  T1.role_id =#{roleId}
         </if>
@@ -73,7 +102,7 @@
 		FROM
 			admin_user T1
 		WHERE
-			1 = 1
+			T1.del_flg !='1'
         <if test="roleId != null and roleId != ''">
            AND  T1.role_id =#{roleId}
         </if>

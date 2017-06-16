@@ -11,7 +11,9 @@ public class AdminUserForm extends BasicPage<AdminUserForm>  {
 	private String roleId;
 	private String username;
 	private String userId;
-	private Integer locked;
+	private String locked;
+	private String password;
+	
 	//是否分页 （否：0）
 	private String isPage;
 	
@@ -31,11 +33,11 @@ public class AdminUserForm extends BasicPage<AdminUserForm>  {
 		this.username = username;
 	}
 
-	public Integer getLocked() {
+	public String getLocked() {
 		return locked;
 	}
 
-	public void setLocked(Integer locked) {
+	public void setLocked(String locked) {
 		this.locked = locked;
 	}
 
@@ -45,6 +47,14 @@ public class AdminUserForm extends BasicPage<AdminUserForm>  {
 
 	public void setIsPage(String isPage) {
 		this.isPage = isPage;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getUserId() {

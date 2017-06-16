@@ -12,5 +12,19 @@
     <sql id="Base_Column_List">
         role_id AS roleId, role_name AS roleName
     </sql>
-
+    <select id="findAllRole" parameterType="com.alone.web.entity.AdminRole" resultType="com.alone.web.entity.AdminRole">
+      	SELECT
+			T1.role_id as roleId,
+			T1.role_name as roleName
+		FROM
+			admin_role T1
+		WHERE
+			1 = 1
+        <if test="roleId != null and roleId !=''">
+        	And T1.role_id =#{roleId}
+        </if>
+        <if test="roleId != null and roleId !=''">
+        	And T1.roleName =#{roleName}
+        </if>
+    </select>
 </mapper>

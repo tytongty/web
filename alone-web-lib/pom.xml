@@ -14,6 +14,7 @@
 		<mysql>6.0.6</mysql>
 		<dbcp>6.0.53</dbcp>
 		<velocity>1.7</velocity>
+		<jackson>2.9.0.pr3</jackson>
 	</properties>
 	<dependencies>
 		<!-- springframework依赖 -->
@@ -73,6 +74,21 @@
 		    <groupId>org.apache.velocity</groupId>
 		    <artifactId>velocity</artifactId>
 		    <version>${velocity}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>${jackson}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>${jackson}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-annotations</artifactId>
+		    <version>${jackson}</version>
 		</dependency>
 		<!-- 工具 -->
 		<!-- mybatis-plus -->

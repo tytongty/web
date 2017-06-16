@@ -16,11 +16,95 @@
         id, name, sort, url, parent_id AS parentId
     </sql>
  <select id="findChildPermission" parameterType="String" resultType="com.alone.web.entity.AdminPermission">
-       select
-          id, name, sort, url, parent_id AS parentId
-        from
-         admin_permission
-         where 
-            parent_id =#{parentId}
+      
+     SELECT
+			ap.id as id,
+			ap.`name` as name,
+			ap.sort as sort,
+			ap.url as url,
+			ap.parent_id AS parentId
+		FROM
+			role_permission rp
+		LEFT JOIN admin_permission ap ON ap.id = rp.permission_id
+		WHERE
+			ap.parent_id = #{parentId}
+			order by ap.id
  </select>
+ 
+ <select id="findParentPermission" parameterType="String" resultType="com.alone.web.entity.AdminPermission">
+      
+     SELECT
+			ap.id as id,
+			ap.`name` as name,
+			ap.sort as sort,
+			ap.url as url,
+			ap.parent_id AS parentId
+		FROM
+			admin_permission ap
+		WHERE
+			ap.id = #{id}
+			order by ap.id
+ </select>
+ <select id="searchParentPageTotal" parameterType="com.alone.web.form.MenuForm" resultType="Integer">
+ 	SELECT
+		COUNT(T1.id)
+		FROM
+			admin_permission T1
+		WHERE
+		 1=1
+ 			<if test="id != null and id != ''">
+			 AND T1.id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+			 AND T1.`name` = #{name}
+			</if>
+			<if test="sort != null and sort != ''">
+			 AND T1.sort = #{sort}
+			</if>
+			<if test="url != null and url != ''">
+			 AND T1.url = #{url}
+			</if>
+			<if test="parentId != null and parentId != ''">
+			 AND T1.parent_id = #{parentId}
+			</if>
+			<if test="parentId == null or parentId == ''">
+			 AND T1.parent_id = ''
+			</if>
+			
+ </select>
+ 
+ <select id="searchParentPage" parameterType="com.alone.web.form.MenuForm" resultType="com.alone.web.form.MenuForm">
+	 	SELECT
+		T1.id AS id,
+		T1.`name` AS name,
+		T1.sort AS sort,
+		T1.url AS url
+		FROM
+			admin_permission T1
+		WHERE
+			1=1
+			
+			<if test="id != null and id != ''">
+			 AND T1.id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+			 AND T1.`name` = #{name}
+			</if>
+			<if test="sort != null and sort != ''">
+			 AND T1.sort = #{sort}
+			</if>
+			<if test="url != null and url != ''">
+			 AND T1.url = #{url}
+			</if>
+			<if test="parentId != null and parentId != ''">
+			 AND T1.parent_id = #{parentId}
+			</if>
+			<if test="parentId == null or parentId == ''">
+			 AND T1.parent_id = ''
+			</if>
+			ORDER BY T1.sort
+			<if test="isPage != 0">
+				Limit #{begin},#{pageSize}
+			</if>
+  </select>
 </mapper>

@@ -5,6 +5,9 @@ import java.util.UUID;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
+import com.alone.web.enums.AccountStatusEnum;
+import com.alone.web.enums.BigTypeEnum;
+
 /**
  * 加密工具
  * @author Administrator
@@ -48,5 +51,8 @@ public class Crypto {
 		System.out.println(password);
 		System.out.println(salt);
 		System.out.println(getUUID());
+		System.out.println(BigTypeEnum.ACCOUNT_STATUS.getValue());
+		System.out.println(AccountStatusEnum.CANCEL.getText());
+		
 	}
 }

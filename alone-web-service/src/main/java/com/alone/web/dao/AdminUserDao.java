@@ -20,7 +20,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface AdminUserDao extends BaseMapper<AdminUser> {
 
-	List<AdminPermission> findPermissionAllByUsername(@Param("username") String username);
+	List<AdminPermission> findPermissionAllParentByUsername(@Param("username") String username);
 
 	AdminRole findfindRoleByUsername(@Param("username") String username);
 
@@ -29,5 +29,7 @@ public interface AdminUserDao extends BaseMapper<AdminUser> {
 	List<AdminUserForm> findEntityByEntity(AdminUserForm vo);
 
 	List<AdminUserForm> searchePage(AdminUserForm vo);
+
+	List<AdminPermission> findPermissionAllChildByUsername(String username);
 
 }

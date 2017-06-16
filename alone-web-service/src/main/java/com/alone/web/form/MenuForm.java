@@ -1,48 +1,44 @@
-package com.alone.web.entity;
+package com.alone.web.form;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
+
+import com.alone.web.entity.AdminPermission;
+import com.alone.web.utils.BasicPage;
+import com.baomidou.mybatisplus.annotations.TableField;
 
 /**
- * <p>
+ * 菜单列表
  * 
- * </p>
- *
  * @author 程新井
- * @since 2017-06-05
+ *
  */
-@TableName("admin_permission")
-public class AdminPermission extends Model<AdminPermission> {
+public class MenuForm extends BasicPage<MenuForm> {
 
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * 权限id
-     */
+	/**
+	 * 权限id
+	 */
 	private String id;
-    /**
-     * 权限名
-     */
+	/**
+	 * 权限名
+	 */
 	private String name;
-    /**
-     * 排序
-     */
+	/**
+	 * 排序
+	 */
 	private Integer sort;
-    /**
-     * 菜单的连接地址
-     */
+	/**
+	 * 菜单的连接地址
+	 */
 	private String url;
-    /**
-     * 父级菜单id
-     */
+	/**
+	 * 父级菜单id
+	 */
 	@TableField("parent_id")
 	private String parentId;
+	//是否分页（否：0）
+	private String isPage;
 	List<AdminPermission> childPermission;
-    Set<AdminPermission> parentPermission;
 	public String getId() {
 		return id;
 	}
@@ -83,17 +79,20 @@ public class AdminPermission extends Model<AdminPermission> {
 		this.parentId = parentId;
 	}
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
-
 	public List<AdminPermission> getChildPermission() {
 		return childPermission;
 	}
 
 	public void setChildPermission(List<AdminPermission> childPermission) {
 		this.childPermission = childPermission;
+	}
+
+	public String getIsPage() {
+		return isPage;
+	}
+
+	public void setIsPage(String isPage) {
+		this.isPage = isPage;
 	}
 
 }

@@ -25,7 +25,7 @@ function getParam(){
 			data:{
 			currentPageNumber:1
 			},
-		url:"../adminUser/searchPage",	
+		url:"../menu/searchPage",	
 		tableList:"tableList",
 		pagination:"pagination",
 		pageTotal:$("#pageTotal").val()
@@ -33,25 +33,4 @@ function getParam(){
 	return param;
 }
 
-function deleted(url){
-	layer.confirm('确定要删除吗？',{icon:3,title:'提示'},function(index){
-	 $.ajax({
-		 type:"get",
-		 url:url,
-		 dataType:"json",
-		 success:function(data){
-			 if(data.sucFlag == 1){
-				var index = layer.alert(data.msg,function(index){
-					window.location.reload();
-					layer.close(index)
-				});
-				
-			 }else{
-				 layer.alert(data.msg)
-			 }
-		 }
-	 })
-		
-	})
-}
 </script>
