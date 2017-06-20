@@ -39,6 +39,7 @@
 			a.username = #{username}
 			and ap.parent_id !=''
 		ORDER BY ap.sort)
+		AND ap1.parent_id =''
         GROUP BY ap1.id
         ORDER BY ap1.id	
    	

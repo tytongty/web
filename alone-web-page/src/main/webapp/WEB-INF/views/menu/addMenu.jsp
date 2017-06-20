@@ -13,38 +13,68 @@
 <div class="page-container">
 	<form id="formId">
 	   <input type="hidden" value="${parentId }" name="parentId">
+	   <input type="hidden" value="${isAdd }" name="isAdd">
 		<table class="table table-border table-bg table-bordered table-hover">
-			<thead>
-			    <tr class="text-c">
-					<th colspan="2">
-					   菜单兰添加
-					</th>
-				</tr>
-				<tr class="text-r">
-					<td>id</td>
-					<td><input type="text" name="id" class="input-text"></td>
-				</tr>
-				
-				<tr class="text-r">
-					<td>菜单名称</td>
-					<td><input type="text" name="name" class="input-text"></td>
-				</tr >
-				<tr class="text-r">
-					<td>sort</td>
-					<td><input type="text" name="sort" class="input-text"></td>
-				</tr>
-			<c:if test="${not empty parentId }">
-				<tr class="text-r">
-					<td>url</td>
-					<td><input type="text" name="url" class="input-text"></td>
-				</tr>
-			</c:if>
-				<tr class="text-c">
-					<td colspan="2">
-						<input class="btn btn-primary radius" type="submit" value="submit" id="submit">
-					</td>
-				</tr>
-			</thead>
+		<c:choose>
+					<c:when test="${ isAdd == true }">
+						<thead>
+							<tr class="text-c">
+								<th colspan="2">菜单兰添加</th>
+							</tr>
+							<tr class="text-r">
+								<td>id</td>
+								<td><input type="text" name="id" class="input-text" ></td>
+							</tr>
+
+							<tr class="text-r">
+								<td>菜单名称</td>
+								<td><input type="text" name="name" class="input-text"></td>
+							</tr>
+							<tr class="text-r">
+								<td>sort</td>
+								<td><input type="text" name="sort" class="input-text"></td>
+							</tr>
+							<c:if test="${not empty parentId }">
+								<tr class="text-r">
+									<td>url</td>
+									<td><input type="text" name="url" class="input-text"></td>
+								</tr>
+							</c:if>
+							<tr class="text-c">
+								<td colspan="2"><input class="btn btn-primary radius"
+									type="submit" value="submit" id="submit"></td>
+							</tr>
+						</thead>
+					</c:when>
+					<c:otherwise>
+					   <input type="hidden" name="id" value="${menu.id }">
+						<thead>
+							<tr class="text-c">
+								<th colspan="2">菜单兰修改</th>
+							</tr>
+							<tr class="text-r">
+								<td>菜单名称</td>
+								<td><input type="text" name="name" class="input-text" value="${menu.name }"></td>
+							</tr>
+							<tr class="text-r">
+								<td>sort</td>
+								<td><input type="text" name="sort" class="input-text" value="${menu.sort }"></td>
+							</tr>
+							<c:if test="${not empty menu.parentId }">
+								<tr class="text-r">
+									<td>url</td>
+									<td><input type="text" name="url" class="input-text" value="${menu.url }"></td>
+								</tr>
+							</c:if>
+							<tr class="text-c">
+								<td colspan="2"><input class="btn btn-primary radius"
+									type="submit" value="save edit" id="submit"></td>
+							</tr>
+						</thead>
+
+					</c:otherwise>
+				</c:choose>
+			
 		</table>
 	</form>
  </div>	

@@ -17,30 +17,23 @@
         <option value="" selected>请选择</option>
       </select>
       </span>
-    
-		<input type="text" name="" id="" placeholder=" 权限查询" style="width:250px" class="input-text">
-		<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 查询</button>
+		<button  id="searchId" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 查询</button>
+		<button  id="permissionEdit" class="btn btn-success" type="submit">提交权限修改</button>
 	</div>
+	<div class="text-c">
+	
+	</div>
+	 <div class="text-l">
+		<table class="table">
+			<tr>
+				<td class="va-t">
+					<ul id="treeDemo" class="ztree"></ul>
+				</td>
+			</tr>
+		</table>
+	 </div>
 	
 </div>
 </body>
-<script type="text/javascript">
-	$(function(){
-		
-		$.ajax({
-			type:"post",
-			url:'../permission/getRole',
-			dataType:"json",
-			success:function(data){
-				if(data){
-					$.each(data,function(i,n){
-						$("#roleId").append("<option value='"+n.rolId+"'>"+n.roleName+"</option>")
-					})
-				}
-			}
-		});
-		
-	});
-	
-</script>
+<script type="text/javascript" src="<%=basePath%>/static/myResources/js/permission.js"></script>
 </html>

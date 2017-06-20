@@ -38,25 +38,14 @@ var setting = {
 			enable: true,
 			chkStyle: "checkbox",
 			chkboxType: { "Y": "ps", "N": "ps" }
-		},
-		callback: {
-			beforeClick: function(treeId, treeNode) {
-				var zTree = $.fn.zTree.getZTreeObj("tree");
-				if (treeNode.isParent) {
-					zTree.expandNode(treeNode);
-					return false;
-				} else {
-					demoIframe.attr("src",treeNode.file + ".html");
-					return true;
-				}
-			}
 		}
+		
 	};
 
 	var zNodes =[
 		{ id:1, pId:0, name:"一级分类", open:true},
 		{ id:11, pId:1, name:"二级分类"},
-		{ id:111, pId:11, name:"三级分类"},
+		{ id:111, pId:11, name:"三级分类",checked:true},
 		{ id:112, pId:11, name:"三级分类"},
 		{ id:113, pId:11, name:"三级分类"},
 		{ id:114, pId:11, name:"三级分类"},
@@ -66,20 +55,20 @@ var setting = {
 		{ id:122, pId:12, name:"三级分类 1-2-2"},
 	];
 			
-	var code;
+	/* var code;
 			
 	function showCode(str) {
 		if (!code) code = $("#code");
 		code.empty();
 		code.append("<li>"+str+"</li>");
-	}
+	} */
 			
 	$(document).ready(function(){
 		var t = $("#treeDemo");
 		t = $.fn.zTree.init(t, setting, zNodes);
 		demoIframe = $("#testIframe");
 		//demoIframe.on("load", loadReady);
-		var zTree = $.fn.zTree.getZTreeObj("tree");
+		//var zTree = $.fn.zTree.getZTreeObj("tree");
 		//zTree.selectNode(zTree.getNodeByParam("id",'11'));
 	});
 </script>

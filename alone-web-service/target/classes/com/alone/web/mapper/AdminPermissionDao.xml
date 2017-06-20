@@ -43,7 +43,7 @@
 			admin_permission ap
 		WHERE
 			ap.id = #{id}
-			order by ap.id
+			order by ap.sort
  </select>
  <select id="searchParentPageTotal" parameterType="com.alone.web.form.MenuForm" resultType="Integer">
  	SELECT
@@ -106,5 +106,58 @@
 			<if test="isPage != 0">
 				Limit #{begin},#{pageSize}
 			</if>
+  </select>
+  
+  <select id="findAllPermissiom" resultType="com.alone.web.utils.NodeTree">
+  	SELECT
+	T1.id as id,
+	T1.`name` as name,
+	T1.parent_id as parentId
+	FROM
+		admin_permission T1
+  
+  </select>
+  
+  <select id="findPermissionByRoleId" parameterType="String" resultType="com.alone.web.utils.NodeTree">
+	 SELECT
+		T3.id as id,
+		T3.`name` as name,
+		T3.parent_id as parentId
+	  FROM
+		admin_role T1
+	  LEFT JOIN role_permission T2 ON T2.role_id = T1.role_id
+	  LEFT JOIN admin_permission T3 ON T3.id = T2.permission_id
+		WHERE
+	   T1.role_id =#{roleId}
+  
+  </select>
+  <delete id="deleteByRoleId" parameterType="String">
+     DELETE
+	 FROM
+		role_permission
+	 WHERE
+		role_id = #{roleId}
+  </delete>
+  
+  <insert id="saveAdminPermission" parameterType="String">
+	 INSERT INTO role_permission (role_id, permission_id)
+     VALUES
+	 (
+		#{roleId},
+		#{id}
+	 )  	
+  </insert>
+  
+  <select id="findAdminPermissionById" parameterType="String" resultType="com.alone.web.entity.AdminPermission">
+  		SELECT
+			T1.id as id,
+			T1.`name` as name,
+			T1.sort as sort,
+			T1.url as url,
+			T1.parent_id as parentId
+		FROM
+			admin_permission T1
+		WHERE
+			T1.id = #{id}
   </select>
 </mapper>

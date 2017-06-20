@@ -38,6 +38,8 @@ public class MenuForm extends BasicPage<MenuForm> {
 	private String parentId;
 	//是否分页（否：0）
 	private String isPage;
+	//是否是添加
+	private String isAdd;
 	List<AdminPermission> childPermission;
 	public String getId() {
 		return id;
@@ -93,6 +95,14 @@ public class MenuForm extends BasicPage<MenuForm> {
 
 	public void setIsPage(String isPage) {
 		this.isPage = isPage;
+	}
+
+	public String getIsAdd() {
+		return isAdd;
+	}
+
+	public void setIsAdd(String isAdd) {
+		this.isAdd = isAdd;
 	}
 
 }

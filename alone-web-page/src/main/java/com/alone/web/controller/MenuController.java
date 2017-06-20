@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alone.web.basic.controller.BasicController;
+import com.alone.web.entity.AdminPermission;
 import com.alone.web.form.MenuForm;
 import com.alone.web.service.AdminPermissionService;
 import com.alone.web.utils.PathConst;
@@ -41,20 +42,40 @@ public class MenuController extends BasicController {
 	}
 	
 	@RequestMapping("edit")
-	public ModelAndView edit(ModelAndView mav,String parentId){
+	public ModelAndView edit(ModelAndView mav,String parentId,boolean isAdd,String id){
+		if(!isAdd){
+			//修改编辑
+			//根据id查找该菜单兰的详情
+			AdminPermission menu =	adminPermissionService.findMenuById(id);
+			mav.addObject("menu", menu);
+		}
+		
 		mav.addObject("parentId", parentId);
+		mav.addObject("isAdd",isAdd);
 		mav.setViewName(PathConst.BASE_PATH+"menu/addMenu");
 		return mav;
 	}
 	
 	@RequestMapping("saveMenu")
 	public ModelAndView saveMenu(ModelAndView mav,MenuForm vo){
-		try {
-			adminPermissionService.saveMenu(vo);
-			mav.addObject("msg", "添加成功");
-		} catch (Exception e) {
-			mav.addObject("msg", "添加失败");
-			e.printStackTrace();
+		if(vo.getIsAdd().equals("true")){
+			
+			try {
+				adminPermissionService.saveMenu(vo);
+				mav.addObject("msg", "添加成功");
+			} catch (Exception e) {
+				mav.addObject("msg", "添加失败");
+				e.printStackTrace();
+			}
+		}else{
+			//编辑
+			try {
+				adminPermissionService.update(vo);
+				mav.addObject("msg", "修改成功");
+			} catch (Exception e) {
+				mav.addObject("msg", "修改失败");
+				e.printStackTrace();
+			}
 		}
 		mav.setViewName(PathConst.BASE_PATH+"menu/addMenu");
 		return mav;

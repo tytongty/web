@@ -42,7 +42,6 @@ public class AdminPermission extends Model<AdminPermission> {
 	@TableField("parent_id")
 	private String parentId;
 	List<AdminPermission> childPermission;
-    Set<AdminPermission> parentPermission;
 	public String getId() {
 		return id;
 	}

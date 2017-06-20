@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.alone.web.entity.AdminPermission;
 import com.alone.web.form.MenuForm;
+import com.alone.web.utils.NodeTree;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -26,6 +27,16 @@ public interface AdminPermissionDao extends BaseMapper<AdminPermission> {
 	List<MenuForm> searchParentPage(MenuForm meuForm);
 
 	AdminPermission findParentPermission(@Param("id")String parentId);
+
+	List<NodeTree> findAllPermissiom();
+
+	List<NodeTree> findPermissionByRoleId(@Param("roleId")String roleId);
+
+	void deleteByRoleId(@Param("roleId")String roleId);
+
+	void saveAdminPermission(@Param("id")String id, @Param("roleId")String roleId);
+
+	AdminPermission findAdminPermissionById(@Param("id")String id);
 
 
 

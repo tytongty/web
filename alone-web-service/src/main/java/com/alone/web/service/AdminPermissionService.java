@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.alone.web.dao.AdminPermissionDao;
 import com.alone.web.dao.AdminRoleDao;
 import com.alone.web.entity.AdminPermission;
 import com.alone.web.entity.AdminRole;
 import com.alone.web.form.MenuForm;
+import com.alone.web.utils.NodeTree;
 
 /**
  * 菜单服务类
@@ -67,6 +69,66 @@ public class AdminPermissionService {
 	public List<AdminRole> getRole(AdminRole role) {
 		List<AdminRole> roleList = adminRoleDao.findAllRole(role);
 		return roleList;
+	}
+	
+	/**
+	 * 根据roleId获取其权限
+	 * @param roleId
+	 * @return
+	 */
+	public List<NodeTree> getNodeList(String roleId) {
+		//查出所有权限
+	    List<NodeTree> nodeTreeList = adminPermissionDao.findAllPermissiom();
+	    //根据 roleId查出其所拥有的权限
+	    List<NodeTree> nodeTrees = adminPermissionDao.findPermissionByRoleId(roleId);
+	   for (NodeTree nodeTree : nodeTreeList) {
+		   for (NodeTree node : nodeTrees) {
+				if(node.getId().equals(nodeTree.getId())){
+					nodeTree.setChecked(true);
+				}
+			}
+		   if(StringUtils.isEmpty(nodeTree.getParentId())){
+			   nodeTree.setOpen(true);
+			   nodeTree.setParentId("0");
+		   }
+	}
+	    
+		return nodeTreeList;
+	}
+
+	
+	/**
+	 * 根据权限 id 和roleId 更新角色和权限的关系
+	 * @param trees
+	 * @param roleId
+	 * @return
+	 */
+	public boolean editPermission(List<NodeTree> trees, String roleId) {
+		//删除角色所有的权限
+		adminPermissionDao.deleteByRoleId(roleId);
+		//添加权限
+		for(NodeTree node:trees){
+			adminPermissionDao.saveAdminPermission(node.getId(),roleId);
+		}
+		return false;
+	}
+	/**
+	 * 根据id查询该权限
+	 * @param id
+	 * @return
+	 */
+	public AdminPermission findMenuById(String id) {
+		AdminPermission entity = adminPermissionDao.findAdminPermissionById(id);
+		return entity;
+	}
+
+	public void update(MenuForm vo) {
+		AdminPermission entity = new AdminPermission();
+		entity.setId(vo.getId());
+		entity.setName(vo.getName());
+		entity.setSort(vo.getSort());
+		entity.setUrl(vo.getUrl());
+		adminPermissionDao.updateById(entity);
 	}
 
 }
