@@ -16,6 +16,7 @@
   		<artifactId>alone-web-service</artifactId>
   		<version>1.0.0</version>
   		<type>jar</type>
+  		<systemPath></systemPath>
   	</dependency>
   </dependencies>
 </project>
