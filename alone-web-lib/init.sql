@@ -34,6 +34,7 @@ CREATE TABLE `admin_permission` (
 INSERT INTO `admin_permission` VALUES ('1', '项目管理', '1', '', null);
 INSERT INTO `admin_permission` VALUES ('101', '项目一', '101', '../manager/case', '1');
 INSERT INTO `admin_permission` VALUES ('102', '项目二', '102', '../manager/case2', '1');
+INSERT INTO `admin_permission` VALUES ('102', '项目三', '102', '../manager/case3', '1');
 INSERT INTO `admin_permission` VALUES ('2', '权限管理', '2', '', null);
 INSERT INTO `admin_permission` VALUES ('201', '用户管理', '201', '../adminUser/show', '2');
 
